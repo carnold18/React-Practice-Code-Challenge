@@ -1,19 +1,21 @@
 import React, { Fragment } from 'react'
 import MoreButton from '../components/MoreButton'
+import Sushi from '../components/Sushi'
 
 const SushiContainer = (props) => {
   return (
     <Fragment>
       <div className="belt">
-        {
-          /* 
-             Render Sushi components here!
-          */
-        }
-        <MoreButton />
+        {props.chooseSushis.map((sushi) => {
+          return <Sushi key={sushi.id} sushi={sushi} />
+        })}
+        <MoreButton getMoreSushis={props.getMoreSushis}/>
       </div>
     </Fragment>
   )
 }
 
-export default SushiContainer
+export default SushiContainer;
+
+
+// Pass props down from a component to a const.

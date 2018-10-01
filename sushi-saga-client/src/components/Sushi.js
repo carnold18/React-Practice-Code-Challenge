@@ -9,12 +9,12 @@ const Sushi = (props) => {
           /* Tell me if this sushi has been eaten! */ 
           true ?
             null
-          :
-            <img src={/* Give me an image source! */} width="100%" />
-        }
+          : null
+                }
+                <img src={props.sushi.img_url} alt="" width="100%" />
       </div>
       <h4 className="sushi-details">
-        {/* Give me a name! */} - ${/* Give me a price! */}
+        {props.sushi.name} - ${props.sushi.price}
       </h4>
     </div>
   )
