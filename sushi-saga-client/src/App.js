@@ -41,22 +41,12 @@ class App extends Component {
     console.log(sushi)
     let newCost = this.state.sushiCost + sushi.price;
     if (this.state.totalMoney >= newCost) {
+      let money = this.state.totalMoney - newCost;
       this.setState({
-        sushisEaten: [...this.state.sushisEaten, sushi], sushiCost: newCost
+        sushisEaten: [...this.state.sushisEaten, sushi], totalMoney: money
       })
     }
   }
-
-  // eat = (sushi) => {
-  //   const newCost = this.state.cost + sushi.price
-
-  //   if (!this.state.eaten.includes(sushi) && newCost <= this.state.budget ) {
-  //     this.setState({
-  //       eaten: [...this.state.eaten, sushi],
-  //       cost: newCost
-  //     })
-  //   }
-  // }
 
   render() {
     return (
@@ -64,7 +54,7 @@ class App extends Component {
       (<div>Loading Content</div>) 
       : (<div className="app">
       <SushiContainer chooseSushis={this.chooseSushis()} getMoreSushis={this.getMoreSushis} eatSushi={this.eatSushi} sushisEaten={this.state.sushisEaten}/>
-      <Table sushis={this.state.sushis} sushiCost={this.state.sushiCost} totalMoney={this.state.totalMoney} sushisEaten={this.state.sushisEaten}/>
+      <Table sushis={this.state.sushis} totalMoney={this.state.totalMoney} sushisEaten={this.state.sushisEaten}/>
       </div>)
     );
   }
