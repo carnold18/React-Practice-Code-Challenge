@@ -15,14 +15,15 @@ class App extends Component {
       sushis: [],
       sushisEaten: [],
       totalMoney: 100,
-      sushiIndex: 0
+      sushiIndex: 0,
+      sushiCost: 0
     }
   }
 
-  componentDidMount() { 
+  componentDidMount() {
     fetch(API)
       .then(response => response.json())
-      .then(data => {
+      .then((data) => {
         this.setState({sushis: data})
         })
   }
@@ -33,21 +34,37 @@ class App extends Component {
 
   getMoreSushis = (event) => {
     this.setState({sushiIndex: this.state.sushiIndex+4})
-    console.log(this.state.sushiIndex)
+    // console.log(this.state.sushiIndex)
   }
 
-  eatSushis = (sushi) => {
-    
+  eatSushi = (sushi) => {
+    console.log(sushi)
+    let newCost = this.state.sushiCost + sushi.price;
+    if (this.state.totalMoney >= newCost) {
+      this.setState({
+        sushisEaten: [...this.state.sushisEaten, sushi], sushiCost: newCost
+      })
+    }
   }
+
+  // eat = (sushi) => {
+  //   const newCost = this.state.cost + sushi.price
+
+  //   if (!this.state.eaten.includes(sushi) && newCost <= this.state.budget ) {
+  //     this.setState({
+  //       eaten: [...this.state.eaten, sushi],
+  //       cost: newCost
+  //     })
+  //   }
+  // }
 
   render() {
-    
     return (
       this.state.sushis.length === 0 ?  
       (<div>Loading Content</div>) 
       : (<div className="app">
-      <SushiContainer chooseSushis={this.chooseSushis()} getMoreSushis={this.getMoreSushis} />
-      <Table sushis={this.state.sushis} totalMoney={this.state.totalMoney} />
+      <SushiContainer chooseSushis={this.chooseSushis()} getMoreSushis={this.getMoreSushis} eatSushi={this.eatSushi} sushisEaten={this.state.sushisEaten}/>
+      <Table sushis={this.state.sushis} sushiCost={this.state.sushiCost} totalMoney={this.state.totalMoney} sushisEaten={this.state.sushisEaten}/>
       </div>)
     );
   }
